@@ -27,20 +27,8 @@ function exit_if_fail {
     return $status
 }
 
-
 exit_if_fail zola -c $TOML_BASE check
 exit_if_fail zola -c $TOML_BASE build
 
-# Update deployment date in sitemap.xml
-sed -i -e "s/_NOW_SITEMAP_/$NOW_SITEMAP/g" $DIST/sitemap.xml
 sed -i -e "s/_NOW_HUMAN_/$NOW_HUMAN/g" $DIST/index.html
 sed -i -e "s/_GITHASH_/$GITHASH/g" $DIST/index.html
-
-
-if [[ $1 == "--live" ]]; then
-    echo -e "Sending to ${_GREEN}LIVE${_NC} environment."
-
-    # Publish
-    echo TODO cp $DIST
-fi
-
