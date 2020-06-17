@@ -30,7 +30,6 @@ function exit_if_fail {
 
 exit_if_fail zola -c $TOML_BASE check
 exit_if_fail zola -c $TOML_BASE build
-exit_if_fail npm run posthtml
 
 # Update deployment date in sitemap.xml
 sed -i -e "s/_NOW_SITEMAP_/$NOW_SITEMAP/g" $DIST/sitemap.xml
