@@ -27,7 +27,6 @@ function exit_if_fail {
     return $status
 }
 
-exit_if_fail zola -c $TOML_BASE check
 exit_if_fail zola -c $TOML_BASE build
 
 sed -i -e "s/_NOW_HUMAN_/$NOW_HUMAN/g" $DIST/index.html
