@@ -1,4 +1,4 @@
-# Lean Language Cheat Sheet
+# Lean Prover Cheat Sheet
 
 # Status
 
@@ -6,14 +6,16 @@ Very early. Things are being set up and contents are yet to be written.
 
 # Background
 
-**A single-page Lean resource for people who like high information density.**
+**A single-page [Lean Theorem Prover](https://leanprover-community.github.io/) resource for people who like high information density.**
 
 Use cases, in order of priority:
+
 * **identification & lookup guide** for constructs encountered in code,
 * **discover** parts of the language you might not know,
 * **learn about Lean** if you have prior programming experience.
 
 Design guides:
+
 * have **high information density**; every word counts.
 * be **printer and mobile friendly**
 * don't repeat what's better explained elsewhere, but do state the very essence.

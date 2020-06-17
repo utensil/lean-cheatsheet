@@ -5,28 +5,46 @@ template = "index.html"
 #insert_anchor_links = "right"
 +++
 
-<img id="logo" src="logo.png" alt="Ferris holding a cheat sheet."></img>
 <div class="title">Lean Prover Cheat Sheet</div>
 <div class="subtitle"><span id="subtitle"">{{ date() }}</span></div>
 
-> Contains clickable links to
-> 
-> - **Natural Number Game** {{ nng(level="") }},
-> - **Theorem Proving in Lean** {{ tpil(page="") }},
-> - **Mathematics in Lean** {{ mil(page="") }},
-> - **Tutorials** {{ tutorials(page="") }},
-> - **The Hitchhiker's Guide to Logical Verification** {{ hiker(page="") }},
-> - **Logic and Proof** {{ logic(page="") }},
-> - **Docs** {{ docs(name="std") }},
-> - **Tactic** {{ tactic(name="std") }},
-> - **The Lean Reference Manual** {{ ref(page="") }},
-> - **Source** {{ src(name="") }}.
-> 
-> Other symbols used:
-> 
-> - largely **deprecated** {{ deprecated() }},
-> - is **work in progress** {{ experimental() }},
-> - **bad** {{ bad() }}.
+<blockquote>
+
+<div class="toc">
+
+<div class="column">
+
+Contains clickable links to these guides:
+
+- **Natural Number Game** {{ nng(level="") }}
+- **Theorem Proving in Lean** {{ tpil(page="") }}
+- **Mathematics in Lean** {{ mil(page="") }}
+- **Tutorials** {{ tutorials(page="") }}
+- **Logic and Proof** {{ logic(page="") }}
+- **The Hitchhiker's Guide** {{ hiker(page="") }}
+
+</div>
+
+<div class="column">
+
+... and these docs:
+
+- **The Lean Reference Manual** {{ ref(page="") }}
+- **Mathlib Docs** {{ docs(name="nat") }}
+- **Tactic** {{ tactic(name="std") }}
+- **Source** {{ src(name="nat") }}
+
+Uses these symbols:
+
+- largely **deprecated** {{ deprecated() }}
+- is **work in progress** {{ experimental() }}
+- **bad** {{ bad() }}
+
+</div>
+
+</div>
+
+</blockquote>
 
 <div class="controls">
     <a id="toggle_ligatures" href="javascript:toggle_ligatures()">Fira Code Ligatures (<code>..=, =></code>)</a>
