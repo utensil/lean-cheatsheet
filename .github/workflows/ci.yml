@@ -18,13 +18,17 @@ jobs:
 
     steps:
     - name: Install Zola 📦
-      run: cargo install --git https://github.com/getzola/zola.git --branch next
+      run: |
+        wget https://github.com/getzola/zola/releases/download/v0.11.0/zola-v0.11.0-x86_64-unknown-linux-gnu.tar.gz
+        tar xzvf zola-v0.11.0-x86_64-unknown-linux-gnu.tar.gz
+        mv ./zola /usr/bin/
+        echo $PATH
     - name: Checkout 🛎️
       uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
       with:
         persist-credentials: false
     - name: Build 🔧
-      run: sh build.sh
+      run: bash build.sh
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
