@@ -1,0 +1,265 @@
+@charset "utf-8";
+
+@import "normalize";
+@import "html";
+@import "page";
+@import "data";
+@import "tabs";
+
+
+img#logo {
+    position: relative;
+    top: 40px;
+}
+
+div#helloctrl {
+    text-align: right;
+}
+
+div#helloinfo {
+    float: left;
+    font-size: 9px;
+    display: none;
+}
+
+
+div.controls {
+    font-size: 9px;
+    text-align: right;
+
+    a {
+        margin-left: 15px;
+    }
+}
+
+div.title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 40px;
+}
+
+div.subtitle {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+div.footnotes {
+    margin-top: 5px;
+    font-size: 80%;
+}
+
+div.toc {
+    display: flex;
+    margin-top: 40px;
+}
+
+div.column {
+    flex: 50%;
+}
+
+div.wip {
+    border: 2px dotted orange;
+    padding: 10px;
+}
+
+div.survey {
+    margin-top: 40px;
+    text-align: center;
+    display: none;
+
+    span.ignore {
+        font-size: 70%;
+        position: relative;
+        right: -20px;
+        top: -10px;
+    }
+}
+
+div.steps {
+    border-left: solid 5px #e3b701;
+    border-left-style: dotted;
+    padding-left: 20px;
+
+}
+
+span.warning {
+    color: red;
+}
+
+
+.header-std-green {
+    th {
+        background-color: rgb(212, 247, 244);
+    }
+}
+
+
+.header-red {
+    th {
+        background-color: rgb(235, 156, 162);
+    }
+}
+
+.header-blue {
+    th {
+        background-color: rgb(128, 186, 209);
+    }
+}
+
+.header-green {
+    th {
+        background-color: rgb(164, 206, 164);
+    }
+}
+
+.header-orange {
+    th {
+        background-color: rgb(241, 206, 159);
+    }
+}
+
+.header-magenta {
+    th {
+        background-color: rgb(216, 162, 226);
+    }
+}
+
+.header-lemongrass {
+    th {
+        background-color: rgb(211, 231, 157);
+    }
+}
+
+.header-undefined-color-3 {
+    th {
+        background-color: rgb(157, 231, 203);
+    }
+}
+
+.header-lobstercrabs {
+    th {
+        background-color: rgb(231, 164, 147);
+    }
+}
+
+.header-lavender {
+    th {
+        background-color: rgb(175, 161, 212);
+    }
+}
+
+.header-tooling {
+    th {
+        background-color: rgb(161, 212, 197);
+    }
+}
+
+.header-cross-compilation {
+    th {
+        background-color: rgb(168, 212, 131);
+    }
+}
+
+.header-one-liners {
+    th {
+        background-color: rgb(194, 212, 131);
+    }
+}
+
+.header-std-traits {
+    th {
+        background-color: rgb(233, 235, 204);
+    }
+
+    th:nth-child(1) {
+        width: 130px;
+    }
+}
+
+.header-language-sugar {
+    th {
+        background-color: rgb(240, 140, 116);
+    }
+}
+
+
+.header-api-stability {
+    th {
+        // background-color: rgb(221, 213, 179);
+    }
+}
+
+
+
+
+.stringconversion {
+    th {
+        background-color: rgb(175, 161, 212);
+    }
+
+    th:nth-child(1) {
+        width: 250px;
+    }
+}
+
+
+.stringconversion-other {
+    th {
+        background-color: rgb(195, 201, 222);
+    }
+}
+
+
+table.sendsync {
+
+    th {
+        background-color: rgb(212, 247, 244);
+    }
+
+    td:nth-child(1) {
+        background-color: rgb(212, 247, 244);
+        text-align: left;
+        font-weight: bold;
+    }
+
+    th:nth-child(1) {
+        width: 130px;
+    }
+
+    th:nth-child(2) {
+        width: 300px;
+    }
+
+    th:nth-child(3) {
+        width: 300px;
+    }
+
+}
+
+span.good {
+    color: green;
+}
+
+span.bad {
+    color: darkred;
+}
+
+span.cargo-prefix {
+    border: 1px solid rgb(200, 200, 200);
+}
+
+sup {
+    font-size: 65%;
+}
+
+sup.entry {
+    color: rgb(0, 110, 0);
+}
+
+sup.mid {
+    color: rgb(143, 93, 1);
+}
+
+sup.expert {
+    color: rgb(184, 0, 0);
+}
