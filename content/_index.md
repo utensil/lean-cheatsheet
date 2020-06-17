@@ -47,7 +47,6 @@ Uses these symbols:
 </blockquote>
 
 <div class="controls">
-    <a id="toggle_ligatures" href="javascript:toggle_ligatures()">Fira Code Ligatures (<code>..=, =></code>)</a>
     <a href="javascript:toggle_night_mode()">Night Mode &#x1f4a1;</a>
 </div>
 
