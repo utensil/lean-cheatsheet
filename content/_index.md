@@ -17,11 +17,12 @@ template = "index.html"
 Contains clickable links to these guides:
 
 - **Natural Number Game** {{ nng(level="") }}
-- **Theorem Proving in Lean** {{ tpil(page="") }}
-- **Mathematics in Lean** {{ mil(page="") }}
 - **Tutorials** {{ tutorials(page="") }}
+- **Mathematics in Lean** {{ mil(page="") }}
+- **Theorem Proving in Lean** {{ tpil(page="") }}
 - **Logic and Proof** {{ logic(page="") }}
 - **The Hitchhiker's Guide** {{ hiker(page="") }}
+- **Xena Blogs** {{ xena(page="") }}
 
 </div>
 
