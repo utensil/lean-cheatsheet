@@ -72,6 +72,11 @@ $largescreen-width: 1050px;
             font-size: 0.835em;
             font-family: "Fira Code", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace;
         }
+        pre {
+            code {
+                padding: 2em 2em;
+            }
+        }
         iframe {
             border: 0;
         }
