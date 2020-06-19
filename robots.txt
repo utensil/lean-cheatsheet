@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://utensil.github.io/lean-cheatsheet/sitemap.xml
+Sitemap: https://utensil.github.io/lean-cheatsheet/sitemap.xml
