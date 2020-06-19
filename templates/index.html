@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="font-fira.css" />
     <link rel="stylesheet" href="book.css" />
     <link rel="stylesheet" href="book.css" />
-    <link rel="stylesheet" href="prism.css" />
+    <link rel="stylesheet" href="https://www.unpkg.com/highlightjs@9.16.2/styles/default.css" />
+    <!-- <link rel="stylesheet" href="https://www.unpkg.com/highlightjs@9.16.2/styles/railscasts.css" /> -->
 </head>
 
 <body>
@@ -42,7 +43,11 @@
             alt="Fork me on GitHub"></a>
 
     <!-- Syntax highlighting -->
-    <script type="text/javascript" src="prism.js"></script>
+    <script type="text/javascript" src="https://www.unpkg.com/highlightjs@9.16.2/highlight.pack.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/highlightjs-lean/dist/lean.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
     <script type="text/javascript" src="index.js"></script>
 </body>
 
