@@ -83,7 +83,7 @@ If you are new to Lean, maybe you want to try these:
 <!-- NEW TAB -->
 <div class="tab">
 <input class="tab-radio" type="radio" id="tab-hello-1" name="tab-hello" checked>
-<label class="tab-label" for="tab-hello-1"><b>First Proof</b></label>
+<label class="tab-label" for="tab-hello-1"><b>A First Proof</b></label>
 <div class="tab-panel">
 <div class="tab-content">
 
@@ -98,7 +98,7 @@ by simp [nat.add_comm]
 <!-- NEW TAB -->
 <div class="tab">
 <input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
-<label class="tab-label" for="tab-hello-3"><b>A Longer Proof</b></label>
+<label class="tab-label" for="tab-hello-3"><b>A Taste of Longer Proofs</b></label>
 <div class="tab-panel">
 <div class="tab-content">
 
@@ -107,14 +107,14 @@ class has_dist (α : Type*) := (dist : α → α → ℝ)
 
 instance has_dist_metric_quot {α : Type u} [premetric_space α] : has_dist (metric_quot α) :=
 {
-  dist := quotient.lift₂ (λp q : α, dist p q)
+  dist := quotient.lift₂ (λp q : α, dist p q)    /- Term        -/
   begin
     assume x y x' y' hxx' hyy',
-    have Hxx' : dist x  x' = 0 := hxx',
+    have Hxx' : dist x  x' = 0 := hxx',          /- Structural  -/
     have Hyy' : dist y  y' = 0 := hyy',
-    have A    : dist x  y  ≤ dist x' y' := calc
-                dist x  y  ≤ dist x  x' + dist x' y   : premetric_space.dist_triangle _ _ _
-                       ... = dist x' y                : by simp [Hxx']
+    have A    : dist x  y  ≤ dist x' y' := calc  /- Calculation -/
+                dist x  y  ≤ dist x  x' + dist x' y   : premetric_space.dist_triangle _ _ _ 
+                       ... = dist x' y                : by simp [Hxx']  /- Tactic -/
                        ... ≤ dist x' y' + dist y' y   : premetric_space.dist_triangle _ _ _
                        ... = dist x' y'               : by simp [premetric_space.dist_comm, Hyy'],
     have B    : dist x' y' ≤ dist x  y   := calc
@@ -126,6 +126,17 @@ instance has_dist_metric_quot {α : Type u} [premetric_space α] : has_dist (met
   end
 }
 ```
+
+This example proof is adapted from [topology.metric_space.premetric_space in mathlib](https://github.com/leanprover-community/mathlib/blob/master/src/topology/metric_space/premetric_space.lean), it demonstrats the first 4 of 6 combinable proof paradigms Lean supports:
+
+|  Paradigms     |          How is it like              |    When to use    |
+|----------------|--------------------------------------|-------------------|
+| Tactic         | Reasoning backwards from the goal of the proof, keep transforming the goal until it boils down to the hypotheses | TODO |
+| Term           | Reasoning like lambda functions with the help of the type system, very concise | TODO |
+| Structural     | Reasonning forwards from the hypothesis, reaching some intermediate goals, eventually prove the final goal | TODO |
+| Calculation    | Reasoning like doing calculation on paper with many intermediate steps (every step is justified by a short proof using other modes) | TODO |
+| Conversation   | Freely traverse in the lhs and rhs of hypotheses and goals, to manipulate them | TODO |
+| Pattern matching |  (a.k.a equation compiler ) Prove for each matched pattern, optionally recursively  | good for inductive type and recursive functions |
 
 </div></div></div>
 
