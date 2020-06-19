@@ -75,6 +75,6 @@ Uses these symbols:
 
 <footer>
 
-Utensil Song, {{ year() }} – [lean-cheatsheet](http://utensil.github.io/lean-cheatsheet/) <br/><br/> [Legal & Privacy](legal)
+Utensil Song, {{ year() }} – [lean-cheatsheet](https://utensil.github.io/lean-cheatsheet/) <br/><br/> [Legal & Privacy](legal)
 
 </footer>

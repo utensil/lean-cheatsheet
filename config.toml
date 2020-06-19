@@ -1,4 +1,4 @@
 # The URL the site will be built for
-base_url = "http://utensil.github.io/lean-cheatsheet/"
+base_url = "https://utensil.github.io/lean-cheatsheet/"
 title = "Lean Language Cheat Sheet"
 compile_sass = true
