@@ -30,7 +30,7 @@
             <div class="book-content">
                 <h1></h1>
                 <div class="title">Lean Prover Cheat Sheet</div>
-<div class="subtitle"><span id="subtitle"">19.06.2020</span></div>
+<div class="subtitle"><span id="subtitle"">20.06.2020</span></div>
 <blockquote>
 <div class="toc">
 <div class="column">
@@ -86,7 +86,7 @@
 <!-- NEW TAB -->
 <div class="tab">
 <input class="tab-radio" type="radio" id="tab-hello-1" name="tab-hello" checked>
-<label class="tab-label" for="tab-hello-1"><b>First Proof</b></label>
+<label class="tab-label" for="tab-hello-1"><b>A First Proof</b></label>
 <div class="tab-panel">
 <div class="tab-content">
 <pre><code>example (m n : ℕ) : m + n = n + m :=
@@ -96,21 +96,21 @@ by simp [nat.add_comm]
 <!-- NEW TAB -->
 <div class="tab">
 <input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
-<label class="tab-label" for="tab-hello-3"><b>A Longer Proof</b></label>
+<label class="tab-label" for="tab-hello-3"><b>A Taste of Longer Proofs</b></label>
 <div class="tab-panel">
 <div class="tab-content">
 <pre><code>class has_dist (α : Type*) := (dist : α → α → ℝ)
 
 instance has_dist_metric_quot {α : Type u} [premetric_space α] : has_dist (metric_quot α) :=
 {
-  dist := quotient.lift₂ (λp q : α, dist p q)
+  dist := quotient.lift₂ (λp q : α, dist p q)    /- Term        -/
   begin
     assume x y x' y' hxx' hyy',
-    have Hxx' : dist x  x' = 0 := hxx',
+    have Hxx' : dist x  x' = 0 := hxx',          /- Structural  -/
     have Hyy' : dist y  y' = 0 := hyy',
-    have A    : dist x  y  ≤ dist x' y' := calc
-                dist x  y  ≤ dist x  x' + dist x' y   : premetric_space.dist_triangle _ _ _
-                       ... = dist x' y                : by simp [Hxx']
+    have A    : dist x  y  ≤ dist x' y' := calc  /- Calculation -/
+                dist x  y  ≤ dist x  x' + dist x' y   : premetric_space.dist_triangle _ _ _ 
+                       ... = dist x' y                : by simp [Hxx']  /- Tactic -/
                        ... ≤ dist x' y' + dist y' y   : premetric_space.dist_triangle _ _ _
                        ... = dist x' y'               : by simp [premetric_space.dist_comm, Hyy'],
     have B    : dist x' y' ≤ dist x  y   := calc
@@ -122,6 +122,15 @@ instance has_dist_metric_quot {α : Type u} [premetric_space α] : has_dist (met
   end
 }
 </code></pre>
+<p>This example proof is adapted from <a href="https://github.com/leanprover-community/mathlib/blob/master/src/topology/metric_space/premetric_space.lean">topology.metric_space.premetric_space in mathlib</a>, it demonstrats the first 4 of 6 combinable proof paradigms Lean supports:</p>
+<table><thead><tr><th>Paradigms</th><th>How is it like</th><th>When to use</th></tr></thead><tbody>
+<tr><td>Tactic</td><td>Reasoning backwards from the goal of the proof, keep transforming the goal until it boils down to the hypotheses</td><td>TODO</td></tr>
+<tr><td>Term</td><td>Reasoning like lambda functions with the help of the type system, very concise</td><td>TODO</td></tr>
+<tr><td>Structural</td><td>Reasonning forwards from the hypothesis, reaching some intermediate goals, eventually prove the final goal</td><td>TODO</td></tr>
+<tr><td>Calculation</td><td>Reasoning like doing calculation on paper with many intermediate steps (every step is justified by a short proof using other modes)</td><td>TODO</td></tr>
+<tr><td>Conversation</td><td>Freely traverse in the lhs and rhs of hypotheses and goals, to manipulate them</td><td>TODO</td></tr>
+<tr><td>Pattern matching</td><td>(a.k.a equation compiler ) Prove for each matched pattern, optionally recursively</td><td>good for inductive type and recursive functions</td></tr>
+</tbody></table>
 </div></div></div>
 </div>
 <footer>
