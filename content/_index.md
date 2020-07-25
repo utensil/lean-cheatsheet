@@ -128,7 +128,7 @@ This example proof is rewritten from [Lean 2 paper example](https://github.com/l
 
 #### What is it 
 
-> tpil(page="tactics.html#entering-tactic-mode") }}
+> {{ tpil(page="tactics.html#entering-tactic-mode") }}
 
 Reasoning backwards:
 
@@ -153,7 +153,7 @@ goal → transformed (sub-)goals → hypotheses
 
 #### What is it 
 
-> tpil(page="tactics.html#entering-tactic-mode") }}
+> {{ tpil(page="tactics.html#entering-tactic-mode") }}
 
 Reasoning concisely like lambda functions with the help of the type system.
 
@@ -240,8 +240,6 @@ lemma zero_le : ∀ (n : ℕ), 0 ≤ n
 | 0     := nat.le_refl 0
 | (n+1) := less_than_or_equal.step (zero_le n)
 ```
-
-</div></div></div>
 
 </div></div></div>
 
