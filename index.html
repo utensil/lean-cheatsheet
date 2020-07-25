@@ -114,87 +114,103 @@ end
 </code></pre>
 <p>This example proof is rewritten from <a href="https://github.com/leanprover/lean2/blob/master/library/data/int/order.lean#L112">Lean 2 paper example</a>, it demonstrats the first 4 of 6 combinable proof paradigms Lean supports:</p>
 <div class="tabs">
-<!-- NEW TAB -->
 <div class="tab">
-  <input class="tab-radio" type="radio" id="tab-tactic-mode" name="tab-tactic-mode" checked=1>
+  <input class="tab-radio" type="radio" id="tab-tactic-mode" name="tab-mode" checked>
   <label class="tab-label" for="tab-tactic-mode"><b>Tactic</b></label>
   <div class="tab-panel">
-  <div class="tab-content">
-#### What is it 
-&gt; {{ tpil(page=&quot;tactics.html#entering-tactic-mode&quot;) }}
-Reasoning backwards:
-goal → transformed (sub-)goals → hypotheses
-#### Looks like
-`begin ... end`
-`by { ... }`
-`intro`&#x2F;`apply`&#x2F;`exact`&#x2F;...
+    <div class="tab-content">
+<h4 id="what-is-it">What is it</h4>
+<p>Reasoning backwards:</p>
+<p>goal → transformed (sub-)goals → hypotheses</p>
+<h4 id="looks-like">Looks like</h4>
+<p><code>begin ... end</code></p>
+<p><code>by { ... }</code></p>
+<p><code>intro</code>/<code>apply</code>/<code>exact</code>/...</p>
+<blockquote>
+<p>See also <a href="https://leanprover.github.io/theorem_proving_in_lean/tactics.html#entering-tactic-mode"><sup class="entry">TPIL</sup></a></p>
+</blockquote>
 </div></div></div>
-<!-- NEW TAB -->
 <div class="tab">
-  <input class="tab-radio" type="radio" id="tab-term-mode" name="tab-term-mode" checked=0>
+  <input class="tab-radio" type="radio" id="tab-term-mode" name="tab-mode" >
   <label class="tab-label" for="tab-term-mode"><b>Term</b></label>
   <div class="tab-panel">
-  <div class="tab-content">
-#### What is it 
-&gt; {{ tpil(page=&quot;tactics.html#entering-tactic-mode&quot;) }}
-Reasoning concisely like lambda functions with the help of the type system.
-#### Looks like
-`λ x y, f $ g x y`
+    <div class="tab-content">
+<h4 id="what-is-it-1">What is it</h4>
+<p>Reasoning concisely like lambda functions with the help of the type system.</p>
+<h4 id="looks-like-1">Looks like</h4>
+<p><code>λ x y, f $ g x y</code></p>
+<blockquote>
+<p>See also <a href="https://leanprover.github.io/theorem_proving_in_lean/tactics.html#entering-tactic-mode"><sup class="entry">TPIL</sup></a></p>
+</blockquote>
 </div></div></div>
-<!-- NEW TAB -->
 <div class="tab">
-  <input class="tab-radio" type="radio" id="tab-calc-mode" name="tab-calc-mode" checked=0>
+  <input class="tab-radio" type="radio" id="tab-calc-mode" name="tab-mode" >
   <label class="tab-label" for="tab-calc-mode"><b>Calculational</b></label>
   <div class="tab-panel">
-  <div class="tab-content">
-&gt; [calc](https:&#x2F;&#x2F;leanprover-community.github.io&#x2F;extras&#x2F;calc.html) {{ tpil(page=&quot;quantifiers_and_equality.html#calculational-proofs&quot;) }}
-#### What is it
-Reasoning like doing calculation with intermediate steps justified by a short proof
-#### Looks like
-```
-calc a + b
+    <div class="tab-content">
+<h4 id="what-is-it-2">What is it</h4>
+<p>Reasoning like doing calculation with intermediate steps justified by a short proof</p>
+<h4 id="looks-like-2">Looks like</h4>
+<pre><code>calc a + b
      = a + 0 + b : by tactic_proof
   ...= a + (0 + b) : term_proof
   ...≥ a : proof
-```
+</code></pre>
+<blockquote>
+<p>See also <a href="https://leanprover-community.github.io/extras/calc.html">calc</a>, <a href="https://leanprover.github.io/theorem_proving_in_lean/quantifiers_and_equality.html#calculational-proofs"><sup class="entry">TPIL</sup></a></p>
+</blockquote>
 </div></div></div>
-<!-- NEW TAB -->
 <div class="tab">
-  <input class="tab-radio" type="radio" id="tab-conv-mode" name="tab-conv-mode" checked=0>
+  <input class="tab-radio" type="radio" id="tab-conv-mode" name="tab-mode" >
   <label class="tab-label" for="tab-conv-mode"><b>Conversation</b></label>
   <div class="tab-panel">
-  <div class="tab-content">
-&gt; [conv](https:&#x2F;&#x2F;leanprover-community.github.io&#x2F;extras&#x2F;conv.html)
-#### What is it
-Freely traverse in the lhs and rhs of hypotheses and goals, to manipulate them.
-#### Looks like
-`conv_lhs { ... }`
-`conv_rhs { ... }`
-#### Example
-```
-example : 0 + 0 = 0 :=
+    <div class="tab-content">
+<h4 id="what-is-it-3">What is it</h4>
+<p>Freely traverse in the lhs and rhs of hypotheses and goals, to manipulate them.</p>
+<h4 id="looks-like-3">Looks like</h4>
+<p><code>conv_lhs { ... }</code></p>
+<p><code>conv_rhs { ... }</code></p>
+<h4 id="example">Example</h4>
+<pre><code>example : 0 + 0 = 0 :=
 begin
   conv_lhs {simp}
 end
-```
+</code></pre>
+<blockquote>
+<p>See also <a href="https://leanprover-community.github.io/extras/conv.html">conv</a></p>
+</blockquote>
 </div></div></div>
-<!-- NEW TAB -->
 <div class="tab">
-  <input class="tab-radio" type="radio" id="tab-equation-compiler" name="tab-equation-compiler" checked=0>
+  <input class="tab-radio" type="radio" id="tab-equation-compiler" name="tab-mode" >
   <label class="tab-label" for="tab-equation-compiler"><b>Pattern matching</b></label>
   <div class="tab-panel">
-  <div class="tab-content">
-#### What is it
-(a.k.a equation compiler )
-Prove for each matched pattern, optionally recursively, good for inductive type and recursive functions.
-#### Looks like
-`| pattern := proof`
-#### Example
-```
-lemma zero_le : ∀ (n : ℕ), 0 ≤ n
-| 0     := nat.le_refl 0
-| (n+1) := less_than_or_equal.step (zero_le n)
-```
+    <div class="tab-content">
+<h4 id="what-is-it-4">What is it</h4>
+<p>(a.k.a equation compiler )</p>
+<p>Prove for each matched pattern, optionally recursively, good for inductive type and recursive functions.</p>
+<h4 id="looks-like-4">Looks like</h4>
+<p><code>| pattern := proof</code></p>
+<h4 id="example-1">Example</h4>
+<pre><code>inductive nat
+| zero : nat
+| succ (n : nat) : nat
+
+def add : nat → nat → nat
+| m zero     := m
+| m (succ n) := succ (add m n)
+
+local infix ` + ` := add
+
+theorem add_zero (m : nat) : m + zero = m := rfl
+theorem add_succ (m n : nat) : m + succ n = succ (m + n) := rfl
+
+theorem zero_add : ∀ n, zero + n = n
+| zero     := rfl
+| (succ n) := congr_arg succ (zero_add n)
+</code></pre>
+<blockquote>
+<p>See also <a href="https://leanprover.github.io/theorem_proving_in_lean/induction_and_recursion.html#structural-recursion-and-induction"><sup class="entry">TPIL</sup></a></p>
+</blockquote>
 </div></div></div>
 </div>
 <footer>
