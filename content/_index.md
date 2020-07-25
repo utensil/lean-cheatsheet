@@ -119,12 +119,7 @@ This example proof is rewritten from [Lean 2 paper example](https://github.com/l
 
 <div class="tabs">
 
-<!-- NEW TAB -->
-<div class="tab">
-<input class="tab-radio" type="radio" id="tab-hello-1" name="tab-hello" checked>
-<label class="tab-label" for="tab-hello-1"><b>Tactic</b></label>
-<div class="tab-panel">
-<div class="tab-content">
+{% new_tab(title="Tactic", id="tactic-mode", checked="1") %}
 
 #### What is it 
 
@@ -142,14 +137,9 @@ goal → transformed (sub-)goals → hypotheses
 
 `intro`/`apply`/`exact`/...
 
-</div></div></div>
+{% end %}
 
-<!-- NEW TAB -->
-<div class="tab">
-<input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
-<label class="tab-label" for="tab-hello-3"><b>Term</b></label>
-<div class="tab-panel">
-<div class="tab-content">
+{% new_tab(title="Term", id="term-mode", checked="0") %}
 
 #### What is it 
 
@@ -161,14 +151,9 @@ Reasoning concisely like lambda functions with the help of the type system.
 
 `λ x y, f $ g x y`
 
-</div></div></div>
+{% end %}
 
-<!-- NEW TAB -->
-<div class="tab">
-<input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
-<label class="tab-label" for="tab-hello-3"><b>Calculational</b></label>
-<div class="tab-panel">
-<div class="tab-content">
+{% new_tab(title="Calculational", id="calc-mode", checked="0") %}
 
 > [calc](https://leanprover-community.github.io/extras/calc.html) {{ tpil(page="quantifiers_and_equality.html#calculational-proofs") }}
 
@@ -184,14 +169,10 @@ calc a + b
   ...= a + (0 + b) : term_proof
   ...≥ a : proof
 ```
-</div></div></div>
 
-<!-- NEW TAB -->
-<div class="tab">
-<input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
-<label class="tab-label" for="tab-hello-3"><b>Conversation</b></label>
-<div class="tab-panel">
-<div class="tab-content">
+{% end %}
+
+{% new_tab(title="Conversation", id="conv-mode", checked="0") %}
 
 > [conv](https://leanprover-community.github.io/extras/conv.html)
 
@@ -213,15 +194,9 @@ begin
   conv_lhs {simp}
 end
 ```
+{% end %}
 
-</div></div></div>
-
-<!-- NEW TAB -->
-<div class="tab">
-<input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
-<label class="tab-label" for="tab-hello-3"><b>Pattern matching</b></label>
-<div class="tab-panel">
-<div class="tab-content">
+{% new_tab(title="Pattern matching", id="equation-compiler", checked="0") %}
 
 #### What is it
 
@@ -241,7 +216,7 @@ lemma zero_le : ∀ (n : ℕ), 0 ≤ n
 | (n+1) := less_than_or_equal.step (zero_le n)
 ```
 
-</div></div></div>
+{% end %}
 
 </div>
 
