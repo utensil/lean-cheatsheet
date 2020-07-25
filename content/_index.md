@@ -139,6 +139,22 @@ goal → transformed (sub-)goals → hypotheses
 
 {{ end_tab() }}
 
+{{ new_tab(title="Structured", id="structured-mode", group="mode") }}
+
+#### What is it 
+
+Reasonning forwards:
+
+hypotheses → intermediate goals → goal
+
+#### Looks like
+
+`assume`/`let`/`have`/`show`/...
+
+> See also {{ tpil(page="tactics.html#structuring-tactic-proofs") }}
+
+{{ end_tab() }}
+
 {{ new_tab(title="Term", id="term-mode", group="mode") }}
 
 #### What is it 
