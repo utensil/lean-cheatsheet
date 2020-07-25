@@ -119,11 +119,9 @@ This example proof is rewritten from [Lean 2 paper example](https://github.com/l
 
 <div class="tabs">
 
-{% new_tab(title="Tactic", id="tactic-mode", checked="1") %}
+{{ new_tab(title="Tactic", id="tactic-mode", group="mode", checked="1") }}
 
 #### What is it 
-
-> {{ tpil(page="tactics.html#entering-tactic-mode") }}
 
 Reasoning backwards:
 
@@ -137,13 +135,13 @@ goal → transformed (sub-)goals → hypotheses
 
 `intro`/`apply`/`exact`/...
 
-{% end %}
+> See also {{ tpil(page="tactics.html#entering-tactic-mode") }}
 
-{% new_tab(title="Term", id="term-mode", checked="0") %}
+{{ end_tab() }}
+
+{{ new_tab(title="Term", id="term-mode", group="mode") }}
 
 #### What is it 
-
-> {{ tpil(page="tactics.html#entering-tactic-mode") }}
 
 Reasoning concisely like lambda functions with the help of the type system.
 
@@ -151,11 +149,11 @@ Reasoning concisely like lambda functions with the help of the type system.
 
 `λ x y, f $ g x y`
 
-{% end %}
+> See also {{ tpil(page="tactics.html#entering-tactic-mode") }}
 
-{% new_tab(title="Calculational", id="calc-mode", checked="0") %}
+{{ end_tab() }}
 
-> [calc](https://leanprover-community.github.io/extras/calc.html) {{ tpil(page="quantifiers_and_equality.html#calculational-proofs") }}
+{{ new_tab(title="Calculational", id="calc-mode", group="mode") }}
 
 #### What is it
 
@@ -170,11 +168,11 @@ calc a + b
   ...≥ a : proof
 ```
 
-{% end %}
+> See also [calc](https://leanprover-community.github.io/extras/calc.html), {{ tpil(page="quantifiers_and_equality.html#calculational-proofs") }}
 
-{% new_tab(title="Conversation", id="conv-mode", checked="0") %}
+{{ end_tab() }}
 
-> [conv](https://leanprover-community.github.io/extras/conv.html)
+{{ new_tab(title="Conversation", id="conv-mode", group="mode") }}
 
 #### What is it
 
@@ -194,9 +192,12 @@ begin
   conv_lhs {simp}
 end
 ```
-{% end %}
 
-{% new_tab(title="Pattern matching", id="equation-compiler", checked="0") %}
+> See also [conv](https://leanprover-community.github.io/extras/conv.html)
+
+{{ end_tab() }}
+
+{{ new_tab(title="Pattern matching", id="equation-compiler", group="mode") }}
 
 #### What is it
 
@@ -211,12 +212,27 @@ Prove for each matched pattern, optionally recursively, good for inductive type 
 #### Example
 
 ```
-lemma zero_le : ∀ (n : ℕ), 0 ≤ n
-| 0     := nat.le_refl 0
-| (n+1) := less_than_or_equal.step (zero_le n)
+inductive nat
+| zero : nat
+| succ (n : nat) : nat
+
+def add : nat → nat → nat
+| m zero     := m
+| m (succ n) := succ (add m n)
+
+local infix ` + ` := add
+
+theorem add_zero (m : nat) : m + zero = m := rfl
+theorem add_succ (m n : nat) : m + succ n = succ (m + n) := rfl
+
+theorem zero_add : ∀ n, zero + n = n
+| zero     := rfl
+| (succ n) := congr_arg succ (zero_add n)
 ```
 
-{% end %}
+> See also {{ tpil(page="induction_and_recursion.html#structural-recursion-and-induction") }}
+
+{{ end_tab() }}
 
 </div>
 

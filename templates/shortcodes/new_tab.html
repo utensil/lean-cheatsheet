@@ -1,8 +1,5 @@
-<!-- NEW TAB -->
 <div class="tab">
-  <input class="tab-radio" type="radio" id="tab-{{id}}" name="tab-{{id}}" checked={{checked}}>
+  <input class="tab-radio" type="radio" id="tab-{{id}}" name="tab-{{group}}" {% if checked %}checked{% endif %}>
   <label class="tab-label" for="tab-{{id}}"><b>{{title}}</b></label>
   <div class="tab-panel">
-  <div class="tab-content">
-{{ body }}
-</div></div></div>
+    <div class="tab-content">
