@@ -131,13 +131,27 @@ end
 </blockquote>
 </div></div></div>
 <div class="tab">
+  <input class="tab-radio" type="radio" id="tab-structured-mode" name="tab-mode" >
+  <label class="tab-label" for="tab-structured-mode"><b>Structured</b></label>
+  <div class="tab-panel">
+    <div class="tab-content">
+<h4 id="what-is-it-1">What is it</h4>
+<p>Reasonning forwards:</p>
+<p>hypotheses → intermediate goals → goal</p>
+<h4 id="looks-like-1">Looks like</h4>
+<p><code>assume</code>/<code>let</code>/<code>have</code>/<code>show</code>/...</p>
+<blockquote>
+<p>See also <a href="https://leanprover.github.io/theorem_proving_in_lean/tactics.html#structuring-tactic-proofs"><sup class="entry">TPIL</sup></a></p>
+</blockquote>
+</div></div></div>
+<div class="tab">
   <input class="tab-radio" type="radio" id="tab-term-mode" name="tab-mode" >
   <label class="tab-label" for="tab-term-mode"><b>Term</b></label>
   <div class="tab-panel">
     <div class="tab-content">
-<h4 id="what-is-it-1">What is it</h4>
+<h4 id="what-is-it-2">What is it</h4>
 <p>Reasoning concisely like lambda functions with the help of the type system.</p>
-<h4 id="looks-like-1">Looks like</h4>
+<h4 id="looks-like-2">Looks like</h4>
 <p><code>λ x y, f $ g x y</code></p>
 <blockquote>
 <p>See also <a href="https://leanprover.github.io/theorem_proving_in_lean/tactics.html#entering-tactic-mode"><sup class="entry">TPIL</sup></a></p>
@@ -148,9 +162,9 @@ end
   <label class="tab-label" for="tab-calc-mode"><b>Calculational</b></label>
   <div class="tab-panel">
     <div class="tab-content">
-<h4 id="what-is-it-2">What is it</h4>
+<h4 id="what-is-it-3">What is it</h4>
 <p>Reasoning like doing calculation with intermediate steps justified by a short proof</p>
-<h4 id="looks-like-2">Looks like</h4>
+<h4 id="looks-like-3">Looks like</h4>
 <pre><code>calc a + b
      = a + 0 + b : by tactic_proof
   ...= a + (0 + b) : term_proof
@@ -165,9 +179,9 @@ end
   <label class="tab-label" for="tab-conv-mode"><b>Conversation</b></label>
   <div class="tab-panel">
     <div class="tab-content">
-<h4 id="what-is-it-3">What is it</h4>
+<h4 id="what-is-it-4">What is it</h4>
 <p>Freely traverse in the lhs and rhs of hypotheses and goals, to manipulate them.</p>
-<h4 id="looks-like-3">Looks like</h4>
+<h4 id="looks-like-4">Looks like</h4>
 <p><code>conv_lhs { ... }</code></p>
 <p><code>conv_rhs { ... }</code></p>
 <h4 id="example">Example</h4>
@@ -185,10 +199,10 @@ end
   <label class="tab-label" for="tab-equation-compiler"><b>Pattern matching</b></label>
   <div class="tab-panel">
     <div class="tab-content">
-<h4 id="what-is-it-4">What is it</h4>
+<h4 id="what-is-it-5">What is it</h4>
 <p>(a.k.a equation compiler )</p>
 <p>Prove for each matched pattern, optionally recursively, good for inductive type and recursive functions.</p>
-<h4 id="looks-like-4">Looks like</h4>
+<h4 id="looks-like-5">Looks like</h4>
 <p><code>| pattern := proof</code></p>
 <h4 id="example-1">Example</h4>
 <pre><code>inductive nat
