@@ -31,14 +31,14 @@ Contains clickable links to these guides:
 
 - **The Lean Reference Manual** {{ ref(page="") }}
 - **Mathlib Docs** {{ docs(name="nat") }}
-- **Tactic** {{ tactic(name="std") }}
+- **Tactic** {{ tactic(name="assume") }}
 - **Source** {{ src(name="nat") }}
 
-Uses these symbols:
+<!-- Uses these symbols:
 
 - largely **deprecated** {{ deprecated() }}
 - is **work in progress** {{ experimental() }}
-- **bad** {{ bad() }}
+- **bad** {{ bad() }} -->
 
 </div>
 
@@ -56,17 +56,17 @@ Uses these symbols:
 
 <div class="column">
 
-**TODO**
+<!-- **TODO**
 
-- TODO
+- TODO -->
 
 </div>
 
 <div class="column">
 
-**TODO**
+<!-- **TODO**
 
-- TODO
+- TODO -->
 
 </div>
 
@@ -77,66 +77,171 @@ Uses these symbols:
 
 If you are new to Lean, maybe you want to try these:
 
+### A First Proof
+
+```
+example (m n : ℕ) : m + n = n + m :=
+by simp [nat.add_comm]
+```
+### A Longer Proof
+
+```
+import tactic
+import tactic.lint
+
+open int
+
+theorem le.antisymm : ∀ {a b : ℤ}, a ≤ b → b ≤ a → a = b :=
+begin
+assume a b : ℤ, assume (H₁ : a ≤ b) (H₂ : b ≤ a),
+obtain ⟨n, Hn⟩ := int.le.dest H₁,
+obtain ⟨m, Hm⟩ := int.le.dest H₂,
+have H₃ : a + of_nat (n + m) = a + 0, from
+  calc
+    a + of_nat (n + m) = a + (of_nat n + m) : rfl
+      ... = a + (n + m)                     : by rw of_nat_eq_coe
+      ... = a + n + m                       : by rw add_assoc
+      ... = b + m                           : by rw Hn
+      ... = a                               : Hm
+      ... = a + 0                           : by rw add_zero,
+have H₄ : of_nat (n + m) = of_nat 0, from add_left_cancel H₃,
+have H₅ : n + m = 0,                 from of_nat.inj H₄,
+have h₆ : n = 0,                     from nat.eq_zero_of_add_eq_zero_right H₅,
+show a = b, from
+  calc
+    a = a + 0    : by simp_rw [add_zero]
+  ... = a + n    : by simp_rw [h₆, int.coe_nat_zero]
+  ... = b        : Hn
+end
+```
+
+This example proof is rewritten from [Lean 2 paper example](https://github.com/leanprover/lean2/blob/master/library/data/int/order.lean#L112), it demonstrats the first 4 of 6 combinable proof paradigms Lean supports:
 
 <div class="tabs">
 
 <!-- NEW TAB -->
 <div class="tab">
 <input class="tab-radio" type="radio" id="tab-hello-1" name="tab-hello" checked>
-<label class="tab-label" for="tab-hello-1"><b>A First Proof</b></label>
+<label class="tab-label" for="tab-hello-1"><b>Tactic</b></label>
 <div class="tab-panel">
 <div class="tab-content">
 
-```
-example (m n : ℕ) : m + n = n + m :=
-by simp [nat.add_comm]
-```
+#### What is it 
+
+> tpil(page="tactics.html#entering-tactic-mode") }}
+
+Reasoning backwards:
+
+goal → transformed (sub-)goals → hypotheses
+
+#### Looks like
+
+`begin ... end`
+
+`by { ... }`
+
+`intro`/`apply`/`exact`/...
 
 </div></div></div>
-
 
 <!-- NEW TAB -->
 <div class="tab">
 <input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
-<label class="tab-label" for="tab-hello-3"><b>A Taste of Longer Proofs</b></label>
+<label class="tab-label" for="tab-hello-3"><b>Term</b></label>
 <div class="tab-panel">
 <div class="tab-content">
 
+#### What is it 
+
+> tpil(page="tactics.html#entering-tactic-mode") }}
+
+Reasoning concisely like lambda functions with the help of the type system.
+
+#### Looks like
+
+`λ x y, f $ g x y`
+
+</div></div></div>
+
+<!-- NEW TAB -->
+<div class="tab">
+<input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
+<label class="tab-label" for="tab-hello-3"><b>Calculational</b></label>
+<div class="tab-panel">
+<div class="tab-content">
+
+> [calc](https://leanprover-community.github.io/extras/calc.html) {{ tpil(page="quantifiers_and_equality.html#calculational-proofs") }}
+
+#### What is it
+
+Reasoning like doing calculation with intermediate steps justified by a short proof
+
+#### Looks like
+
 ```
-class has_dist (α : Type*) := (dist : α → α → ℝ)
+calc a + b
+     = a + 0 + b : by tactic_proof
+  ...= a + (0 + b) : term_proof
+  ...≥ a : proof
+```
+</div></div></div>
 
-instance has_dist_metric_quot {α : Type u} [premetric_space α] : has_dist (metric_quot α) :=
-{
-  dist := quotient.lift₂ (λp q : α, dist p q)    /- Term        -/
-  begin
-    assume x y x' y' hxx' hyy',
-    have Hxx' : dist x  x' = 0 := hxx',          /- Structural  -/
-    have Hyy' : dist y  y' = 0 := hyy',
-    have A    : dist x  y  ≤ dist x' y' := calc  /- Calculation -/
-                dist x  y  ≤ dist x  x' + dist x' y   : premetric_space.dist_triangle _ _ _ 
-                       ... = dist x' y                : by simp [Hxx']  /- Tactic -/
-                       ... ≤ dist x' y' + dist y' y   : premetric_space.dist_triangle _ _ _
-                       ... = dist x' y'               : by simp [premetric_space.dist_comm, Hyy'],
-    have B    : dist x' y' ≤ dist x  y   := calc
-                dist x' y' ≤ dist x' x  + dist x y'   : premetric_space.dist_triangle _ _ _
-                       ... = dist x  y'               : by simp [premetric_space.dist_comm, Hxx']
-                       ... ≤ dist x  y  + dist y y'   : premetric_space.dist_triangle _ _ _
-                       ... = dist x  y                : by simp [Hyy'],
-    exact le_antisymm A B
-  end
-}
+<!-- NEW TAB -->
+<div class="tab">
+<input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
+<label class="tab-label" for="tab-hello-3"><b>Conversation</b></label>
+<div class="tab-panel">
+<div class="tab-content">
+
+> [conv](https://leanprover-community.github.io/extras/conv.html)
+
+#### What is it
+
+Freely traverse in the lhs and rhs of hypotheses and goals, to manipulate them.
+
+#### Looks like
+
+`conv_lhs { ... }`
+
+`conv_rhs { ... }`
+
+#### Example
+
+```
+example : 0 + 0 = 0 :=
+begin
+  conv_lhs {simp}
+end
 ```
 
-This example proof is adapted from [topology.metric_space.premetric_space in mathlib](https://github.com/leanprover-community/mathlib/blob/master/src/topology/metric_space/premetric_space.lean), it demonstrats the first 4 of 6 combinable proof paradigms Lean supports:
+</div></div></div>
 
-|  Paradigms     |          How is it like              |    When to use    |
-|----------------|--------------------------------------|-------------------|
-| Tactic         | Reasoning backwards from the goal of the proof, keep transforming the goal until it boils down to the hypotheses | TODO |
-| Term           | Reasoning like lambda functions with the help of the type system, very concise | TODO |
-| Structural     | Reasonning forwards from the hypothesis, reaching some intermediate goals, eventually prove the final goal | TODO |
-| Calculation    | Reasoning like doing calculation on paper with many intermediate steps (every step is justified by a short proof using other modes) | TODO |
-| Conversation   | Freely traverse in the lhs and rhs of hypotheses and goals, to manipulate them | TODO |
-| Pattern matching |  (a.k.a equation compiler ) Prove for each matched pattern, optionally recursively  | good for inductive type and recursive functions |
+<!-- NEW TAB -->
+<div class="tab">
+<input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
+<label class="tab-label" for="tab-hello-3"><b>Pattern matching</b></label>
+<div class="tab-panel">
+<div class="tab-content">
+
+#### What is it
+
+(a.k.a equation compiler )
+
+Prove for each matched pattern, optionally recursively, good for inductive type and recursive functions.
+
+#### Looks like
+
+`| pattern := proof`
+
+#### Example
+
+```
+lemma zero_le : ∀ (n : ℕ), 0 ≤ n
+| 0     := nat.le_refl 0
+| (n+1) := less_than_or_equal.step (zero_le n)
+```
+
+</div></div></div>
 
 </div></div></div>
 
