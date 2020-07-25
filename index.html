@@ -30,7 +30,7 @@
             <div class="book-content">
                 <h1></h1>
                 <div class="title">Lean Prover Cheat Sheet</div>
-<div class="subtitle"><span id="subtitle"">20.06.2020</span></div>
+<div class="subtitle"><span id="subtitle"">25.07.2020</span></div>
 <blockquote>
 <div class="toc">
 <div class="column">
@@ -49,15 +49,14 @@
 <ul>
 <li><strong>The Lean Reference Manual</strong> <a href="https://leanprover.github.io/reference/"><sup class="expert">REF</sup></a></li>
 <li><strong>Mathlib Docs</strong> <a href="https://leanprover-community.github.io/mathlib_docs/find/nat"><sup class="mid">docs</sup></a></li>
-<li><strong>Tactic</strong> <a href="https://leanprover-community.github.io/mathlib_docs/tactics.html#std"><sup class="mid">tactic</sup></a></li>
+<li><strong>Tactic</strong> <a href="https://leanprover-community.github.io/mathlib_docs/tactics.html#assume"><sup class="mid">tactic</sup></a></li>
 <li><strong>Source</strong> <a href="https://leanprover-community.github.io/mathlib_docs/find/nat/src"><sup class="mid">src</sup></a></li>
 </ul>
-<p>Uses these symbols:</p>
-<ul>
-<li>largely <strong>deprecated</strong> <sup>🗑️</sup></li>
-<li>is <strong>work in progress</strong> <sup>🚧</sup></li>
-<li><strong>bad</strong> <sup>🛑</sup></li>
-</ul>
+<!-- Uses these symbols:
+
+- largely **deprecated** <sup>🗑️</sup>
+- is **work in progress** <sup>🚧</sup>
+- **bad** <sup>🛑</sup> -->
 </div>
 </div>
 </blockquote>
@@ -67,70 +66,141 @@
 <div class="noprint">
 <div class="toc">
 <div class="column">
-<p><strong>TODO</strong></p>
-<ul>
-<li>TODO</li>
-</ul>
+<!-- **TODO**
+
+- TODO -->
 </div>
 <div class="column">
-<p><strong>TODO</strong></p>
-<ul>
-<li>TODO</li>
-</ul>
+<!-- **TODO**
+
+- TODO -->
 </div>
 </div>
 </div>
 <h2 id="hello-lean">Hello, Lean!</h2>
 <p>If you are new to Lean, maybe you want to try these:</p>
+<h3 id="a-first-proof">A First Proof</h3>
+<pre><code>example (m n : ℕ) : m + n = n + m :=
+by simp [nat.add_comm]
+</code></pre>
+<h3 id="a-longer-proof">A Longer Proof</h3>
+<pre><code>import tactic
+import tactic.lint
+
+open int
+
+theorem le.antisymm : ∀ {a b : ℤ}, a ≤ b → b ≤ a → a = b :=
+begin
+assume a b : ℤ, assume (H₁ : a ≤ b) (H₂ : b ≤ a),
+obtain ⟨n, Hn⟩ := int.le.dest H₁,
+obtain ⟨m, Hm⟩ := int.le.dest H₂,
+have H₃ : a + of_nat (n + m) = a + 0, from
+  calc
+    a + of_nat (n + m) = a + (of_nat n + m) : rfl
+      ... = a + (n + m)                     : by rw of_nat_eq_coe
+      ... = a + n + m                       : by rw add_assoc
+      ... = b + m                           : by rw Hn
+      ... = a                               : Hm
+      ... = a + 0                           : by rw add_zero,
+have H₄ : of_nat (n + m) = of_nat 0, from add_left_cancel H₃,
+have H₅ : n + m = 0,                 from of_nat.inj H₄,
+have h₆ : n = 0,                     from nat.eq_zero_of_add_eq_zero_right H₅,
+show a = b, from
+  calc
+    a = a + 0    : by simp_rw [add_zero]
+  ... = a + n    : by simp_rw [h₆, int.coe_nat_zero]
+  ... = b        : Hn
+end
+</code></pre>
+<p>This example proof is rewritten from <a href="https://github.com/leanprover/lean2/blob/master/library/data/int/order.lean#L112">Lean 2 paper example</a>, it demonstrats the first 4 of 6 combinable proof paradigms Lean supports:</p>
 <div class="tabs">
 <!-- NEW TAB -->
 <div class="tab">
 <input class="tab-radio" type="radio" id="tab-hello-1" name="tab-hello" checked>
-<label class="tab-label" for="tab-hello-1"><b>A First Proof</b></label>
+<label class="tab-label" for="tab-hello-1"><b>Tactic</b></label>
 <div class="tab-panel">
 <div class="tab-content">
-<pre><code>example (m n : ℕ) : m + n = n + m :=
-by simp [nat.add_comm]
+<h4 id="what-is-it">What is it</h4>
+<blockquote>
+<p>tpil(page=&quot;tactics.html#entering-tactic-mode&quot;) }}</p>
+</blockquote>
+<p>Reasoning backwards:</p>
+<p>goal → transformed (sub-)goals → hypotheses</p>
+<h4 id="looks-like">Looks like</h4>
+<p><code>begin ... end</code></p>
+<p><code>by { ... }</code></p>
+<p><code>intro</code>/<code>apply</code>/<code>exact</code>/...</p>
+</div></div></div>
+<!-- NEW TAB -->
+<div class="tab">
+<input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
+<label class="tab-label" for="tab-hello-3"><b>Term</b></label>
+<div class="tab-panel">
+<div class="tab-content">
+<h4 id="what-is-it-1">What is it</h4>
+<blockquote>
+<p>tpil(page=&quot;tactics.html#entering-tactic-mode&quot;) }}</p>
+</blockquote>
+<p>Reasoning concisely like lambda functions with the help of the type system.</p>
+<h4 id="looks-like-1">Looks like</h4>
+<p><code>λ x y, f $ g x y</code></p>
+</div></div></div>
+<!-- NEW TAB -->
+<div class="tab">
+<input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
+<label class="tab-label" for="tab-hello-3"><b>Calculational</b></label>
+<div class="tab-panel">
+<div class="tab-content">
+<blockquote>
+<p><a href="https://leanprover-community.github.io/extras/calc.html">calc</a> <a href="https://leanprover.github.io/theorem_proving_in_lean/quantifiers_and_equality.html#calculational-proofs"><sup class="entry">TPIL</sup></a></p>
+</blockquote>
+<h4 id="what-is-it-2">What is it</h4>
+<p>Reasoning like doing calculation with intermediate steps justified by a short proof</p>
+<h4 id="looks-like-2">Looks like</h4>
+<pre><code>calc a + b
+     = a + 0 + b : by tactic_proof
+  ...= a + (0 + b) : term_proof
+  ...≥ a : proof
 </code></pre>
 </div></div></div>
 <!-- NEW TAB -->
 <div class="tab">
 <input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
-<label class="tab-label" for="tab-hello-3"><b>A Taste of Longer Proofs</b></label>
+<label class="tab-label" for="tab-hello-3"><b>Conversation</b></label>
 <div class="tab-panel">
 <div class="tab-content">
-<pre><code>class has_dist (α : Type*) := (dist : α → α → ℝ)
-
-instance has_dist_metric_quot {α : Type u} [premetric_space α] : has_dist (metric_quot α) :=
-{
-  dist := quotient.lift₂ (λp q : α, dist p q)    /- Term        -/
-  begin
-    assume x y x' y' hxx' hyy',
-    have Hxx' : dist x  x' = 0 := hxx',          /- Structural  -/
-    have Hyy' : dist y  y' = 0 := hyy',
-    have A    : dist x  y  ≤ dist x' y' := calc  /- Calculation -/
-                dist x  y  ≤ dist x  x' + dist x' y   : premetric_space.dist_triangle _ _ _ 
-                       ... = dist x' y                : by simp [Hxx']  /- Tactic -/
-                       ... ≤ dist x' y' + dist y' y   : premetric_space.dist_triangle _ _ _
-                       ... = dist x' y'               : by simp [premetric_space.dist_comm, Hyy'],
-    have B    : dist x' y' ≤ dist x  y   := calc
-                dist x' y' ≤ dist x' x  + dist x y'   : premetric_space.dist_triangle _ _ _
-                       ... = dist x  y'               : by simp [premetric_space.dist_comm, Hxx']
-                       ... ≤ dist x  y  + dist y y'   : premetric_space.dist_triangle _ _ _
-                       ... = dist x  y                : by simp [Hyy'],
-    exact le_antisymm A B
-  end
-}
+<blockquote>
+<p><a href="https://leanprover-community.github.io/extras/conv.html">conv</a></p>
+</blockquote>
+<h4 id="what-is-it-3">What is it</h4>
+<p>Freely traverse in the lhs and rhs of hypotheses and goals, to manipulate them.</p>
+<h4 id="looks-like-3">Looks like</h4>
+<p><code>conv_lhs { ... }</code></p>
+<p><code>conv_rhs { ... }</code></p>
+<h4 id="example">Example</h4>
+<pre><code>example : 0 + 0 = 0 :=
+begin
+  conv_lhs {simp}
+end
 </code></pre>
-<p>This example proof is adapted from <a href="https://github.com/leanprover-community/mathlib/blob/master/src/topology/metric_space/premetric_space.lean">topology.metric_space.premetric_space in mathlib</a>, it demonstrats the first 4 of 6 combinable proof paradigms Lean supports:</p>
-<table><thead><tr><th>Paradigms</th><th>How is it like</th><th>When to use</th></tr></thead><tbody>
-<tr><td>Tactic</td><td>Reasoning backwards from the goal of the proof, keep transforming the goal until it boils down to the hypotheses</td><td>TODO</td></tr>
-<tr><td>Term</td><td>Reasoning like lambda functions with the help of the type system, very concise</td><td>TODO</td></tr>
-<tr><td>Structural</td><td>Reasonning forwards from the hypothesis, reaching some intermediate goals, eventually prove the final goal</td><td>TODO</td></tr>
-<tr><td>Calculation</td><td>Reasoning like doing calculation on paper with many intermediate steps (every step is justified by a short proof using other modes)</td><td>TODO</td></tr>
-<tr><td>Conversation</td><td>Freely traverse in the lhs and rhs of hypotheses and goals, to manipulate them</td><td>TODO</td></tr>
-<tr><td>Pattern matching</td><td>(a.k.a equation compiler ) Prove for each matched pattern, optionally recursively</td><td>good for inductive type and recursive functions</td></tr>
-</tbody></table>
+</div></div></div>
+<!-- NEW TAB -->
+<div class="tab">
+<input class="tab-radio" type="radio" id="tab-hello-3" name="tab-hello">
+<label class="tab-label" for="tab-hello-3"><b>Pattern matching</b></label>
+<div class="tab-panel">
+<div class="tab-content">
+<h4 id="what-is-it-4">What is it</h4>
+<p>(a.k.a equation compiler )</p>
+<p>Prove for each matched pattern, optionally recursively, good for inductive type and recursive functions.</p>
+<h4 id="looks-like-4">Looks like</h4>
+<p><code>| pattern := proof</code></p>
+<h4 id="example-1">Example</h4>
+<pre><code>lemma zero_le : ∀ (n : ℕ), 0 ≤ n
+| 0     := nat.le_refl 0
+| (n+1) := less_than_or_equal.step (zero_le n)
+</code></pre>
+</div></div></div>
 </div></div></div>
 </div>
 <footer>
